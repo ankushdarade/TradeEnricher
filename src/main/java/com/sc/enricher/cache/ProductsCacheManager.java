@@ -93,7 +93,6 @@ public class ProductsCacheManager {
         FileInputStream inputStream = null;
         Scanner sc = null;
         try {
-            //inputStream = new FileInputStream("product.csv");
             File file = ResourceUtils.getFile("classpath:product.csv");
             inputStream = new FileInputStream(file);
 

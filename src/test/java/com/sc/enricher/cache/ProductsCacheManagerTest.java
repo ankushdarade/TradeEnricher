@@ -33,5 +33,8 @@ public class ProductsCacheManagerTest {
 
         name = productsCacheManager.getProductName(11);
         Assert.assertEquals("Missing Product Name", name);
+
+        name = productsCacheManager.getProductName(7);
+        Assert.assertEquals("Reverse Repos International", name);
     }
 }
