@@ -1,0 +1,11 @@
+package com.sc.enricher.processor;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+public interface IFileProcessor {
+
+    public void process(InputStream in, OutputStream response) throws IOException;
+
+}
