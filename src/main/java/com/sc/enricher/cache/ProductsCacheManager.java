@@ -1,5 +1,6 @@
 package com.sc.enricher.cache;
 
+import com.sc.enricher.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +21,7 @@ public class ProductsCacheManager {
 
     public static final String MISSING_PRODUCT_NAME = "Missing Product Name";
     private static final Logger logger = LoggerFactory.getLogger(ProductsCacheManager.class);
-    private Map<Integer, String> products = new HashMap<>();
+    private Map<Integer, Product> products = new HashMap<>();
 
     @Value("${scb.tradeenrichment.product.cache.max:100000}")
     private long maxCacheSize;
@@ -28,7 +29,7 @@ public class ProductsCacheManager {
     public String getProductName(Integer id) {
         try{
 
-            String name = Optional.ofNullable(products.get(id)).orElseGet(() -> {
+            Product product = Optional.ofNullable(products.get(id)).orElseGet(() -> {
                 try {
                     return searchInFile(id);
                 } catch (IOException e) {
@@ -36,15 +37,15 @@ public class ProductsCacheManager {
                 }
             });
 
-            if(name == null){
+            if(product == null){
                 if(products.keySet().size() < maxCacheSize){
-                    products.put(id, MISSING_PRODUCT_NAME);
+                    products.put(id, new Product(id, MISSING_PRODUCT_NAME));
                 }
 
                 return MISSING_PRODUCT_NAME;
             }
             else{
-                return name;
+                return product.getName();
             }
         }
         catch(Exception ex){
@@ -52,7 +53,7 @@ public class ProductsCacheManager {
         }
     }
 
-    private String searchInFile(Integer id) throws IOException {
+    private Product searchInFile(Integer id) throws IOException {
         {
             logger.info("searchInFile for product id "+id);
             FileInputStream inputStream = null;
@@ -67,7 +68,7 @@ public class ProductsCacheManager {
                     String line = sc.nextLine();
                     if(line.contains(id+",")){
                         String[] pr = line.split(",");
-                        return pr[1];
+                        return new Product(id, pr[1]);
                     }
                 }
                 // note that Scanner suppresses exceptions
@@ -101,7 +102,8 @@ public class ProductsCacheManager {
                 String line = sc.nextLine();
                 String[] pr = line.split(",");
                 try {
-                    products.put(Integer.parseInt(pr[0]), pr[1]);
+                    Integer productId = Integer.parseInt(pr[0]);
+                    products.put(productId, new Product(productId, pr[1]));
                     if(products.keySet().size() >= maxCacheSize){
                         break;
                     }
