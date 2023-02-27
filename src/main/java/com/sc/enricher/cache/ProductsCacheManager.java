@@ -111,7 +111,6 @@ public class ProductsCacheManager {
                 catch(Exception ex){
                     logger.warn("Exception while processing product record "+line);
                 }
-                logger.debug(line);
             }
             // note that Scanner suppresses exceptions
             if (sc.ioException() != null) {
