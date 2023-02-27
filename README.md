@@ -1,7 +1,7 @@
 # Trade Enricher Application
  
 ## Installation Instructions
-You can import the project as a maven application to your IDE a maven project.
+You can import the project as a maven application to your IDE as a maven project.
  
 ## To run the application
 Use one of the several ways of running a Spring Boot application. Below are just three options:
