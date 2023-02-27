@@ -20,9 +20,10 @@ Use one of the several ways of running a Spring Boot application. Below are just
 ## Information
 - Currently running this application with following jvm parameters
    -Xms100m -Xmx100m
-   Was able to process 5 million (trades) records successfully within 30 seconds
-   request (trade.csv) payload size was around 120MB and Response payload size was 200 MB.  
-- Capable of processing large data set 
+   Was able to process 5 million (trades) records successfully within 30 seconds.
+   Request (trade.csv) payload size was around 120MB and Response payload size was 200 MB.  
+- Capable of processing large data set
+- This application processes batch of 10000 records at a time before writing it to response Output Stream asynchronously
 
 ## Assumptions
 - File header and type is always in valid format
@@ -35,8 +36,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
   and then search the product details in an indexed fashion for quick access
 - As next step would like to containerize the application, would like to host this on a cloud platform like Openshift with running multiple pods for better throughput. 
 - Would like to use reactive framework like WebFlux for asynch communication and Streaming.
-
-
+- Wish to multi-thread processing within a single batch to utilize the multiple cores  
 
 
 
