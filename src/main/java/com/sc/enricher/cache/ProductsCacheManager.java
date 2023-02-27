@@ -42,6 +42,7 @@ public class ProductsCacheManager {
                     products.put(id, new Product(id, MISSING_PRODUCT_NAME));
                 }
 
+                logger.info("Missing product name mapping for product id "+id);
                 return MISSING_PRODUCT_NAME;
             }
             else{
