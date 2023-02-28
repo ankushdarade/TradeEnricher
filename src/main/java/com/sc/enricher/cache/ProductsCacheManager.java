@@ -66,9 +66,11 @@ public class ProductsCacheManager {
 
                 sc = new Scanner(inputStream, "UTF-8");
 
+                long lineCount = 0;
                 while (sc.hasNextLine()) {
+                    lineCount++;
                     String line = sc.nextLine();
-                    if(line.contains(id+",")){
+                    if(lineCount>=maxCacheSize && line.contains(id+",")){
                         String[] pr = line.split(",");
                         return new Product(id, pr[1]);
                     }
