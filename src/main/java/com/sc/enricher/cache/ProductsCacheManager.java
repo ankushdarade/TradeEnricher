@@ -20,6 +20,7 @@ import java.util.Scanner;
 public class ProductsCacheManager {
 
     public static final String MISSING_PRODUCT_NAME = "Missing Product Name";
+    public static final String CLASSPATH_PRODUCT_CSV = "classpath:product.csv";
     private static final Logger logger = LoggerFactory.getLogger(ProductsCacheManager.class);
     private Map<Integer, Product> products = new HashMap<>();
 
@@ -60,7 +61,7 @@ public class ProductsCacheManager {
             FileInputStream inputStream = null;
             Scanner sc = null;
             try {
-                File file = ResourceUtils.getFile("classpath:product.csv");
+                File file = ResourceUtils.getFile(CLASSPATH_PRODUCT_CSV);
                 inputStream = new FileInputStream(file);
 
                 sc = new Scanner(inputStream, "UTF-8");
@@ -95,7 +96,7 @@ public class ProductsCacheManager {
         FileInputStream inputStream = null;
         Scanner sc = null;
         try {
-            File file = ResourceUtils.getFile("classpath:product.csv");
+            File file = ResourceUtils.getFile(CLASSPATH_PRODUCT_CSV);
             inputStream = new FileInputStream(file);
 
             sc = new Scanner(inputStream, "UTF-8");
